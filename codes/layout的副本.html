@@ -17,30 +17,22 @@
     <!--浮动布局  -->
     <section class="layout float">
       <style media="screen">
-      .left{
-        position: absolute;
-          top: 0;
-          background: red;
-          left: 0;
-          width: 200px;
+        .container {
+          display: table;
+        }
+      .left, .right{
+        width: 300px;
+          display: table-cell;
+          background-color: red;
       }
-      .right{
-        position: absolute;
-          top: 0;
-          background: red;
-          right: 0;
-          width: 200px;
-      }
-      .main{
-          margin: 0 200px ;
-          background: green;
-      }
+      
+    
 
 
       </style>
       <h1>三栏布局</h1>
       <article class="container">
-        <!-- <div class="left"></div> -->
+        <div class="left"></div>
         <div class="main">
           <h2>浮动解决方案</h2>
           1.这是三栏布局的浮动解决方案；
@@ -50,7 +42,7 @@
           5.这是三栏布局的浮动解决方案；
           6.这是三栏布局的浮动解决方案；
         </div>
-       <!--  <div class="right"></div> -->
+        <div class="right"></div>
         
       </article>
     </section>
