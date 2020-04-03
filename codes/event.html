@@ -18,7 +18,37 @@
         </style>
         目标元素
       </div>
+
+      <div id = "div1">
+          <button id = "button1">我是按钮</button>
+      </div>
+
+
+
+
+
       <script type="text/javascript">
+        var div = document.getElementById("div1");
+        var btn = document.getElementById("button1");
+        
+        btn.addEventListener("click" , function(e){alert("button 执行");
+          e.stopPropagation();
+        });            //3
+        div.addEventListener("click" , function(){alert("第一次执行");
+          
+        } , false);        //1
+        div.addEventListener("click" , function(e){
+          alert("第二次执行") ;
+          // e.stopImmediatePropagation();
+        } , false); 
+        div.addEventListener("click" , function(){alert("第三次执行");} , false);
+        
+
+
+
+
+
+
         var ev = document.getElementById('ev');
 
         ev.addEventListener('click', function (e) {
