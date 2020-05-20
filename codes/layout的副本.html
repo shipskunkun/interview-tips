@@ -18,11 +18,13 @@
     <section class="layout float">
       <style media="screen">
         .container {
-          display: table;
+          display: grid;
+          
+          grid-template-columns: 300px auto 300px; 
+
+          /*grid-column: 300px auto 300px;*/
         }
       .left, .right{
-        width: 300px;
-          display: table-cell;
           background-color: red;
       }
       
