@@ -7,26 +7,216 @@
   <body>
     <script type="text/javascript">
 
-    function(url, data, type) {
-      var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new activeXObject();
-
-      
-
-      if(type == 'get') {
-        url = url + '?' + data.join('&')
-        xhr.open('get', url);
-      }
-      else {
-        xhr.open('post', url)
-        xhr.setContentType('content-type', 'application/x-www-form-urlencoded');
-        data.join('&');
-        xhr.send(data);
-      }
+    var ajax = function(options) {
+    var opt = {
+         url: '',
+         type: 'get',
+         data: {},
+         success: function () {},
+         error: function () {},
+     };
+     util.extend(opt, options);
+     if (opt.url) {
+         var xhr = XMLHttpRequest
+            ? new XMLHttpRequest()
+            : new ActiveXObject('Microsoft.XMLHTTP');
+         var data = opt.data,
+             url = opt.url,
+             type = opt.type.toUpperCase(),
+             dataArr = [];
+         for (var k in data) {
+             dataArr.push(k + '=' + data[k]);
+         }
+         if (type === 'GET') {
+             url = url + '?' + dataArr.join('&');
+             xhr.open(type, url.replace(/\?$/g, ''), true);
+             xhr.send();
+         }
+         if (type === 'POST') {
+             xhr.open(type, url, true);
+             xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+             xhr.send(dataArr.join('&'));
+         }
+         xhr.onload = function () {
+             if (xhr.status === 200 || xhr.status === 304) {
+                 var res;
+                 if (opt.success && opt.success instanceof Function) {
+                     res = xhr.responseText;
+                     if (typeof res ==== 'string') {
+                         res = JSON.parse(res);
+                         opt.success.call(xhr, res);
+                     }
+                 }
+             } else {
+                 if (opt.error && opt.error instanceof Function) {
+                     opt.error.call(xhr, res);
+                 }
+             }
+         };
+     }
     }
+
+
+let ajax =  function(params) {
+  let opt = {
+    data: ,
+    type: ,
+    url: ,
+    onsuccess: ,
+    onfail: 
+  }
+  opt = Object.assign(opt, params);
+  let type = opt.type.toUpperCase(),
+  let data = opt.data
+  let dataArr = []
+
+  let xhr = ? :
+  if(type == 'GET') {
+    for(let i in data) {
+      dataArr.push(i + '=' + data[i])
+    }
+    xhr.open(type, url + '?' + dataArr.join("&"))
+    xhr.send()
+  }
+
+
+ 
+}
+
+
+
+
+
+
+
+
+
+
+xhr.open(method, url, async)
+
+    function ajax(params) {
+      let opt = {
+        data: {},
+        type: '',
+        url: '',
+        onsuccess:
+        onerror: 
+      }
+
+      let opt = Object.assign(opt, params)
+      let xhr = new  ?      :    // ie 兼容性
+      let dataArr = []
+      let type = opt.type.toUpperCase()
+      let url = opt.url
+      if(type == 'GET') {
+        for(let i in data) {
+          dataArr.push(i +  '=' +  data[i])
+        }
+        xhr.open(type, url + '? ' + dataArr.join('&'))
+        xhr.send()
+      }
+
+      if(type == 'POST') {
+        xhr.open(url)
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+        xhr.send(dataArr.join("&"))
+
+      }
+
+      xhr.onreadyStatusChange = function() {
+        if(xhr.readystate  == 4 && (status == 200 || code == 304)) {
+            if(opt.onsuccess && typeof opt.onsuccess == 'function') {
+
+              let res = xhr.responseText
+              opt.onsuccess(res)
+            }
+
+        }
+        else {
+          opt.onfail(res)
+
+        }
+
+      }
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       
 
-      var type = '';
-      var url = 
+    var ajax = function(param) {
+       var xhr = XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+       var type = (param.type || 'get').toUpperCase();
+       var url = param.url;
+       if (!url) {
+          return
+       }
+       var data = param.data,
+           dataArr = [];
+       for (var k in data) {
+          dataArr.push(k + '=' + data[k]);
+       }
+       dataArr.push('_=' + Math.random());
+       if (type == 'GET') {
+          url = url + '?' + dataArr.join('&');
+          xhr.open(type, url);
+          xhr.send();
+       } else {
+         xhr.open(type, url);
+         xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+         xhr.send(dataArr.join('&'));
+       }
+       xhr.onload = function() {
+       if (xhr.status == 200 || xhr.status == 304) {
+          var res;
+          if (param.success && param.success instanceof Function) {
+             res = xhr.responseText;
+             if (typeof res === 'string') {
+                res = JSON.parse(res);
+                param.success.call(xhr, res);
+             }
+          }
+        }
+      };
+    };
+
+
+jsonp:
+
+function createScript(url) {
+  let script = document.createScript();
+  script.type = 'text/javascript'
+  script.url = url
+  document.body[0].appendChild(script)
+  return script
+}
+
+function jsonp(url, callbackName, fn) {
+  let script = createScript(url + 'callback=' + callbackName)
+  window[callbackName] = fn();
+
+  script.onload = function() {
+     window[callbackName] = null;
+  }
+
+}
+
+
+
 
 
 
