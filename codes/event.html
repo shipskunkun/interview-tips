@@ -28,18 +28,19 @@
 
 
       <script type="text/javascript">
+        /*
         var div = document.getElementById("div1");
         var btn = document.getElementById("button1");
         
         btn.addEventListener("click" , function(e){alert("button 执行");
-          e.stopPropagation();
+          // e.stopPropagation();
         });            //3
         div.addEventListener("click" , function(){alert("第一次执行");
           
         } , false);        //1
         div.addEventListener("click" , function(e){
           alert("第二次执行") ;
-          // e.stopImmediatePropagation();
+          e.stopImmediatePropagation();
         } , false); 
         div.addEventListener("click" , function(){alert("第三次执行");} , false);
         
@@ -69,15 +70,22 @@
 
         document.body.addEventListener('click', function (e) {
             console.log('body captrue');
-        }, true);
+        }, true); */
 
-        var eve = new Event('test');
-        ev.addEventListener('test', function () {
-            console.log('test dispatch');
-        });
-        setTimeout(function () {
-            ev.dispatchEvent(eve);
-        }, 1000);
+        let customEvent = new CustomEvent('customEventName', {
+            detail: {
+                a: 1
+              }
+        })
+        
+        // 监听事件：
+        window.addEventListener('customEventName', e => {
+            console.log(e)
+            console.log(e.detail.a) // 1
+        })
+
+        // 分派事件：
+        window.dispatchEvent(customEvent);
       </script>
   </body>
 </html>
