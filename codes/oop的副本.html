@@ -6,6 +6,30 @@
   </head>
   <body>
     <script type="text/javascript">
+    	function Parent() {}
+    	function Child() {}
+
+    	Child.prototype = new Parent();
+    	Child.prototype.constructor = Child
+
+
+    	Parent.call(this)
+
+    	let child1 = Object.create(p)
+
+    	function createO(p) {
+    		let obj = Object.create(p)
+    		obj.say = function() ;
+    		return obj
+    	}
+
+    	let child = createO(p)
+
+
+    	Child.prototype = Object.create(Parent.prototype)
+    	Child.prototype.constructor = Child;
+
+
     	/*
     	//构造函数
       	function Parent1(){
@@ -113,11 +137,11 @@
 		}
 		    
 		function Child2(){
-			// Parent2.call(this);
+			Parent2.call(this);
 		    this.type="child2";
 		}
 		 
-		Child2.prototype = Object.create(new Parent2());
+		Child2.prototype = Object.create(Parent2.prototype);
 		Child2.prototype.constructor = Child2;
 
 
